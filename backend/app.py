@@ -26,15 +26,16 @@ def file_upload():
     file.save(path)
     with open(path, newline='') as csv_file:
         headers = next(csv.reader(csv_file))
+        print(headers)
 
         # convert headers into a string that can be run with cypher
-        # cypher_headers = 
+        # cypher_headers =  
         
 
-        with driver.session() as session:
-            session.run("""
-                LOAD CSV FROM './static/temp.csv'
-            """)
+        # with driver.session() as session:
+        #     session.run("""
+        #         LOAD CSV FROM './static/temp.csv'
+        #     """)
 
     return "success", 200 
 
