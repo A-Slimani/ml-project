@@ -28,12 +28,12 @@ def file_upload():
         headers = next(csv.reader(csv_file))
 
         # convert headers into a string that can be run with cypher
+        # cypher_headers = 
         
 
         with driver.session() as session:
             session.run("""
-                LOAD CSV WITH HEADERS FROM './static/temp.csv' AS row
-                CREATE(:temp_csv { })
+                LOAD CSV FROM './static/temp.csv'
             """)
 
     return "success", 200 
