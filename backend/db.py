@@ -4,6 +4,7 @@ import os
 
 dotenv.load_dotenv()
 
+# not using this right now
 def open_connection():
   URI = os.getenv('NEO4J_URI')
   AUTH = (os.getenv('NEO4J_USERNAME'), os.getenv('NEO4J_PASSWORD'))

@@ -16,7 +16,6 @@ const handleFileUpload = () => {
     .post("/file_upload", formData)
     .then((response) => {
       console.log(response);
-      //Do something with the response
     })
     .catch((error) => {
       console.error(error);
