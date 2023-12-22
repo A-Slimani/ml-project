@@ -26,17 +26,25 @@ def file_upload():
     path = f"./static/{filename}"
     file.save(path)
 
+    content = ""
     with open(path, newline='') as csv_file:
-        headers = next(csv.reader(csv_file))
-    
-    keys = next(headers)
-    print(keys)
+        reader = csv.reader(csv_file)
+        headers = next(reader)
+        for data in reader:
+            content += data 
 
-    with driver.session() as session:
-        session.run("""
-            LOAD CSV WITH HEADERS FROM 'file:///static/Australian Vehicle Price.csv' AS LINE 
-            CREATE (v:Vehicle {make: row.make, model: row.model, price: row.price})
-        """)
+    print(content) 
+    print(headers)
+    cypher_query = ""
+
+    for header in headers:
+        cypher_query += ""
+
+    # with driver.session() as session:
+    #     session.run("""
+    #         LOAD CSV WITH HEADERS FROM 'file:///static/Australian Vehicle Price.csv' AS LINE 
+    #         CREATE (v:Vehicle {make: row.make, model: row.model, price: row.price})
+    #     """)
   
     return "success", 200 
 
