@@ -22,23 +22,22 @@ def index():
 @app.route("/file_upload", methods=['POST'])
 def file_upload():
     file = request.files['file']
-    file.save('./static/current.csv')
-    # with open(path, newline='') as csv_file:
-    #     headers = next(csv.reader(csv_file))
-    #     print(headers)
+    filename = request.files['file'].filename
+    path = f"./static/{filename}"
+    file.save(path)
 
-    #     # convert headers into a string that can be run with cypher
-    #     cypher_headers = "(:"
-    #     for header in headers:
-    #         cypher_headers += "(:{header})"
-    #     
+    with open(path, newline='') as csv_file:
+        headers = next(csv.reader(csv_file))
+    
+    keys = next(headers)
+    print(keys)
 
-    #     with driver.session() as session:
-    #         session.run("""
-    #             LOAD CSV WITH HEADERS FROM'./static/temp.csv' AS ROW 
-    #             RETURN ROW
-    #         """)
-
+    with driver.session() as session:
+        session.run("""
+            LOAD CSV WITH HEADERS FROM 'file:///static/Australian Vehicle Price.csv' AS LINE 
+            CREATE (v:Vehicle {make: row.make, model: row.model, price: row.price})
+        """)
+  
     return "success", 200 
 
 if __name__ == '__main__':
