@@ -41,9 +41,9 @@ def file_upload():
         cypher_query += ""
 
     # with driver.session() as session:
-    #     session.run("""
-    #         LOAD CSV WITH HEADERS FROM 'file:///static/Australian Vehicle Price.csv' AS LINE 
-    #         CREATE (v:Vehicle {make: row.make, model: row.model, price: row.price})
+    #     session.run(f"""
+    #         LOAD CSV WITH HEADERS FROM '{path}' AS ROW 
+    #         CREATE ( {make: row.make, model: row.model, price: row.price})
     #     """)
   
     return "success", 200 
