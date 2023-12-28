@@ -26,25 +26,6 @@ def file_upload():
     path = f"./static/{filename}"
     file.save(path)
 
-    content = ""
-    with open(path, newline='') as csv_file:
-        reader = csv.reader(csv_file)
-        headers = next(reader)
-        for data in reader:
-            content += data 
-
-    print(content) 
-    print(headers)
-    cypher_query = ""
-
-    for header in headers:
-        cypher_query += ""
-
-    # with driver.session() as session:
-    #     session.run(f"""
-    #         LOAD CSV WITH HEADERS FROM '{path}' AS ROW 
-    #         CREATE ( {make: row.make, model: row.model, price: row.price})
-    #     """)
   
     return "success", 200 
 

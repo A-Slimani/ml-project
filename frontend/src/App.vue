@@ -8,7 +8,6 @@ console.log(fileInput)
 
 const handleFileUpload = () => {
   const file = fileInput.value.files[0];
-  console.log(file)
   const formData = new FormData();
   formData.append("file", file);
 
