@@ -23,11 +23,17 @@ def index():
 def file_upload():
     file = request.files['file']
     filename = request.files['file'].filename
-    path = f"./static/{filename}"
+    path = f"./csv_files/{filename}"
+    # check that the folder doesnt have a combined filespace of 100MB
     file.save(path)
 
-  
+    # return success message
     return "success", 200 
+
+@app.route("/save_to_db", methods=['POST'])
+def save_to_db():   
+
+    return "success", 200
 
 if __name__ == '__main__':
     app.run()

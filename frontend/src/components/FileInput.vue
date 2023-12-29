@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from "vue";
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ function handleFileUpload() {
     const formData = new FormData();
     formData.append("file", file);
 
-    axios.post("/upload", formData, {
+    axios.post("/file_upload", formData, {
         headers: {
             "Content-Type": "multipart/form-data"
         }
@@ -19,6 +19,9 @@ function handleFileUpload() {
         console.log(err);
     })
 };
-
-
 </script>
+
+<template>
+    <label for="ml-file">Choose file to be processed: </label>
+    <input @change="handleFileUpload" ref="fileInput" type="file" id="ml-file" name="ml-file" accept=".csv, application/vnd.ms-excel, text/csv" />
+</template>
