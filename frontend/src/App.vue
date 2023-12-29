@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import FileInput from './components/FileInput.vue';
-import NameObject from './components/NameObject.vue';
 
 </script>
 
@@ -8,12 +7,14 @@ import NameObject from './components/NameObject.vue';
   <div class="main">
     <h1>ML DEMO</h1>
     <FileInput />
-    <NameObject />
   </div>
 </template>
 
 <style scoped>
 .main {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
