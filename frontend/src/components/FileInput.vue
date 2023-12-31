@@ -12,8 +12,6 @@ function handleFileUpload() {
   formData.append("file", file);
   formData.append("text", name);
 
-  debugger;
-
   axios.post("/file_upload", formData,
   ).then(res => {
     console.log(res);
@@ -26,10 +24,10 @@ function handleFileUpload() {
 <template>
   <form @submit="handleFileUpload">
     <label class="form-item" for="ml-file">Choose file to be processed: </label>
-    <input class="form-item" ref="fileInput" type="file" id="ml-file" name="ml-file"
+    <input class="form-item" ref="fileInput" type="file" id="ml-file" name="mlFile"
       accept=".csv, application/vnd.ms-excel, text/csv" />
     <label class="form-item" for="object-name">Object name (to be created): </label>
-    <input class="form-item" ref="objectName" type="text" id="object-name" />
+    <input class="form-item" ref="objectName" type="text" id="object-name" name="objectName"/>
     <input class="form-item" type="submit" value="Submit" />
   </form>
 </template>
