@@ -22,12 +22,12 @@ function handleFileUpload() {
 </script>
 
 <template>
-  <form @submit="handleFileUpload">
+  <form @submit.prevent="handleFileUpload">
     <label class="form-item" for="ml-file">Choose file to be processed: </label>
-    <input class="form-item" ref="fileInput" type="file" id="ml-file" name="mlFile"
+    <input class="form-item" ref="fileInput" type="file" id="ml-file" name="ml-file"
       accept=".csv, application/vnd.ms-excel, text/csv" />
     <label class="form-item" for="object-name">Object name (to be created): </label>
-    <input class="form-item" ref="objectName" type="text" id="object-name" name="objectName"/>
+    <input class="form-item" ref="objectName" type="text" id="object-name" name="object-name"/>
     <input class="form-item" type="submit" value="Submit" />
   </form>
 </template>
