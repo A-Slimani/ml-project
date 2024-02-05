@@ -25,6 +25,13 @@ def get_files():
     files = os.listdir('./csv_files')
     return jsonify(files)
 
+@app.route("/api/get_file_columns/<filename>", methods=['GET'])
+def get_file(filename):
+    path = f"./csv_files/{filename}"
+    with open(path, 'r') as f:
+        columns = f.readline().split(',')
+    return columns
+
 @app.route("/api/file_and_object_name_upload", methods=['POST'])
 def file_and_object_upload():
     file = request.files['file']
@@ -40,15 +47,17 @@ def file_and_object_upload():
 
 @app.route("/api/file_upload", methods=['POST'])
 def file_upload():
-    print(request)
-    # file = request.files['file']
-    # filename = request.files['file'].filename
-    # path = f"./csv_files/{filename}"
-    # # TODO: ensure that the folder doesnt have a combined filespace of 100MB
+    file = request.files['null']
+    filename = request.files['null'].filename
+    path = f"./csv_files/{filename}"
+    # TODO: ensure that the folder doesnt get large
 
-    # file.save(path)
-
+    file.save(path)
     return "success", 200 
+
+@app.route("/api/pre_processing", methods=['GET'])
+def pre_processing():
+    pass
 
 @app.route("/api/save_to_db", methods=['POST'])
 def save_to_db():   

@@ -5,6 +5,7 @@ import pycaret
 import pandas as pd
 
 def automl_regression():
+  # get which file needed to run from the frontend
   data = pd.read_csv('../csv_files/current.csv')
 
   # clean non numerical values

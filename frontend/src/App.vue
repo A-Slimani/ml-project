@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import FileInput from './components/FileInput.vue';
+import FileProcessing from './components/FileProcessing.vue';
 
 </script>
 
 <template>
   <div class="main">
     <h1>ML DEMO</h1>
-    <FileInput />
+    <FileProcessing />
   </div>
 </template>
 
