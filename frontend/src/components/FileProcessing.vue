@@ -2,13 +2,14 @@
 import { onMounted, ref, watch } from "vue";
 import axios from 'axios';
 
-const fileInput = ref()
-const fileList = ref([])
-const selectedFile = ref()
-const selectedMLMethod = ref()
-const MLOptions = ref(['Regression', 'Classification'])
-const selectedFileColumns = ref()
-const targetColumn = ref()
+const fileInput = ref() // TODO: file the type for this "file"
+const fileList = ref<string[]>([])
+const selectedFile = ref<string>()
+const selectedMLMethod = ref<string>()
+const MLOptions = ref<string[]>(['Regression', 'Classification'])
+const selectedFileColumns = ref<string[]>()
+const targetColumn = ref<string>()
+const rowsRemoved = ref<number>()
 
 function getFileList() {
   axios.get('/api/get_files').then(res => {
@@ -40,19 +41,32 @@ function handleFileUpload() {
 
 function handlePreprocessing() {
   // upload the target column, selected file and selected ML method 
-  axios.post('/api/pre_processing', {
-    file: selectedFile.value,
-    target_column: targetColumn.value,
-    method: selectedMLMethod.value
-  }).then(res => {
-    console.log(res);
-  }).catch(err => {
-    console.log(err);
-  })
+  if (targetColumn.value) {
+    axios.post('/api/pre_processing', {
+      file: selectedFile.value,
+      target_column: targetColumn.value.replace(/\n/g, ''),
+      method: selectedMLMethod.value
+    }).then(res => {
+      rowsRemoved.value = res.data
+      // store the console logs in a logger
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+}
+
+function handleMLProcessing() {
+  axios.get('/api/run_ml_processing')
+    .then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
 }
 
 watch(selectedFile, () => {
-  if (selectedFile.value){
+  if (selectedFile.value) {
     getFileContent()
   } else {
     selectedFileColumns.value = []
@@ -80,7 +94,11 @@ onMounted(() => {
     <p>Choose target column to be processed</p>
     <Listbox v-model="targetColumn" :options="selectedFileColumns" class="w-full md:w-14rem"
       listStyle="max-height:250px" />
-    <Button label="Submit" :disabled="!selectedMLMethod || !targetColumn || !selectedFile"/>
+    <p> Provide other options for preprocessing later here</p>
+    <Button label="Submit for preprocessing" @click='handlePreprocessing'
+      :disabled="!selectedMLMethod || !targetColumn || !selectedFile" />
+    <p v-if="rowsRemoved">Preprocessing complete. Rows removed: {{ rowsRemoved }}</p>
+    <Button v-if="selectedMLMethod" v-bind:label="'Run ' + selectedMLMethod" @click="handleMLProcessing"/>
   </div>
 </template>
 
