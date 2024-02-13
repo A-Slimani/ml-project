@@ -10,6 +10,7 @@ const MLOptions = ref<string[]>(['Regression', 'Classification'])
 const selectedFileColumns = ref<string[]>()
 const targetColumn = ref<string>()
 const rowsRemoved = ref<number>()
+const preProcessSuccess = ref<Boolean>()
 
 function getFileList() {
   axios.get('/api/get_files').then(res => {
@@ -48,7 +49,7 @@ function handlePreprocessing() {
       method: selectedMLMethod.value
     }).then(res => {
       rowsRemoved.value = res.data
-      // store the console logs in a logger
+      preProcessSuccess.value = true
       console.log(res);
     }).catch(err => {
       console.log(err);
@@ -94,11 +95,11 @@ onMounted(() => {
     <p>Choose target column to be processed</p>
     <Listbox v-model="targetColumn" :options="selectedFileColumns" class="w-full md:w-14rem"
       listStyle="max-height:250px" />
-    <p> Provide other options for preprocessing later here</p>
+    <p> === Provide other options for preprocessing later here ===</p>
     <Button label="Submit for preprocessing" @click='handlePreprocessing'
       :disabled="!selectedMLMethod || !targetColumn || !selectedFile" />
     <p v-if="rowsRemoved">Preprocessing complete. Rows removed: {{ rowsRemoved }}</p>
-    <Button v-if="selectedMLMethod" v-bind:label="'Run ' + selectedMLMethod" @click="handleMLProcessing"/>
+    <Button :disabled=!preProcessSuccess v-if="selectedMLMethod" v-bind:label="'Run ' + selectedMLMethod" @click="handleMLProcessing"/>
   </div>
 </template>
 

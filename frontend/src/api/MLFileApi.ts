@@ -1,16 +1,7 @@
 import axios from 'axios'
-import { ref } from 'vue'
-
 
 export const getFileList = async () => {
-  axios
-    .get('/api/get_files')
-    .then(res => {
-      return res.data
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  return await axios.get('/api/get_file_list')
 }
 
 export const getFileContent = async () => {
