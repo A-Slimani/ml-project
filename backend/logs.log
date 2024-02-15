@@ -5213,3 +5213,69 @@ Alternately, you can install this by running `pip install pycaret[models]`
 2024-02-16 07:55:04,673:INFO:Set up simple imputation.
 2024-02-16 07:55:04,679:INFO:Set up encoding of categorical features.
 2024-02-16 07:55:04,679:INFO:Set up column name cleaning.
+2024-02-16 07:55:05,265:INFO:Finished creating preprocessing pipeline.
+2024-02-16 07:55:05,272:INFO:Pipeline: Pipeline(memory=FastMemory(location=C:\Users\aboud\AppData\Local\Temp\joblib),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['Year'],
+                                    transformer=SimpleImputer())),
+                ('categorical_imputer',
+                 TransformerWrapper(include=['Brand', 'Model', 'Car/Suv',
+                                             'Title', 'UsedOrNew',
+                                             'Transmission', 'Engine',
+                                             'DriveType', 'FuelType',
+                                             'FuelConsumption', 'Kilometres',
+                                             'Co...
+                 TransformerWrapper(include=['Brand', 'Model', 'Car/Suv',
+                                             'Title', 'Engine',
+                                             'FuelConsumption', 'Kilometres',
+                                             'ColourExtInt', 'Location'],
+                                    transformer=TargetEncoder(cols=['Brand',
+                                                                    'Model',
+                                                                    'Car/Suv',
+                                                                    'Title',
+                                                                    'Engine',
+                                                                    'FuelConsumption',
+                                                                    'Kilometres',
+                                                                    'ColourExtInt',
+                                                                    'Location'],
+                                                              handle_missing='return_nan'))),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames()))])
+2024-02-16 07:55:05,272:INFO:Creating final display dataframe.
+2024-02-16 07:55:06,129:INFO:Setup _display_container:                     Description             Value
+0                    Session id              5796
+1                        Target             Price
+2                   Target type        Regression
+3           Original data shape       (16681, 19)
+4        Transformed data shape       (16681, 76)
+5   Transformed train set shape       (11676, 76)
+6    Transformed test set shape        (5005, 76)
+7              Numeric features                 1
+8          Categorical features                17
+9      Rows with missing values             12.8%
+10                   Preprocess              True
+11              Imputation type            simple
+12           Numeric imputation              mean
+13       Categorical imputation              mode
+14     Maximum one-hot encoding                25
+15              Encoding method              None
+16               Fold Generator             KFold
+17                  Fold Number                10
+18                     CPU Jobs                -1
+19                      Use GPU             False
+20               Log Experiment             False
+21              Experiment Name  reg-default-name
+22                          USI              095d
+2024-02-16 07:55:06,244:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-16 07:55:06,244:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-16 07:55:06,359:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-16 07:55:06,359:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-02-16 07:55:06,359:INFO:setup() successfully completed in 3.21s...............
