@@ -4,16 +4,19 @@ import FileProcessing from './components/FileProcessing.vue';
 </script>
 
 <template>
-  <div class="main">
-    <h1>ML DEMO</h1>
+  <h1>ML DEMO</h1>
+  <div class="all">
     <FileProcessing />
   </div>
 </template>
 
 <style scoped>
-.main {
+h1 {
+  text-align: center;
+}
+.all {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 </style>

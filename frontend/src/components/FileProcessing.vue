@@ -108,7 +108,7 @@ onMounted(() => {
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
   gap: 10px;
   margin: 10px;
 }
@@ -118,6 +118,5 @@ onMounted(() => {
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  margin: 10px;
 }
 </style>
