@@ -5,11 +5,13 @@ import json
 
 ml_processing = Blueprint('preprocessing', __name__)
 
-df = ''
-target_column = ''
+df: pd.DataFrame = None 
+target_column: str = None 
 
 @ml_processing.route('/api/pre_processing', methods=['POST'])
 def pre_processing():
+  global df
+  global target_column
 
   data = json.loads(request.data)
 
@@ -36,6 +38,6 @@ def pre_processing():
 @ml_processing.route('/api/run_ml_processing', methods=['GET'])
 def run_ml_processing():
 
-  s = setup(data=df, target=target_column)
+  ml_setup = setup(data=df, target=target_column)
 
-  return "success", 200
+  return jsonify(ml_setup), 200

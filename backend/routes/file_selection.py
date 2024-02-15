@@ -8,12 +8,14 @@ def get_files():
   files = os.listdir('./csv_files')
   return jsonify(files), 200
 
+
 @file_selection_blueprint.route("/api/get_file_columns/<filename>", methods=['GET'])
 def get_file(filename):
     path = f"./csv_files/{filename}"
     with open(path, 'r') as f:
         columns = f.readline().split(',')
     return columns
+
 
 @file_selection_blueprint.route("/api/file_and_object_name_upload", methods=['POST'])
 def file_and_object_upload():
@@ -28,6 +30,7 @@ def file_and_object_upload():
 
     return "success", 200 
 
+
 @file_selection_blueprint.route("/api/file_upload", methods=['POST'])
 def file_upload():
     file = request.files['null']
@@ -37,6 +40,7 @@ def file_upload():
 
     file.save(path)
     return "success", 200 
+
 
 @file_selection_blueprint.route("/api/save_to_db", methods=['POST'])
 def save_to_db():   

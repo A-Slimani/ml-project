@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
+import { usePreProcessStore } from "../stores/MLStore";
 import axios from 'axios';
 
 const fileInput = ref() // TODO: file the type for this "file"
@@ -10,7 +11,7 @@ const MLOptions = ref<string[]>(['Regression', 'Classification'])
 const selectedFileColumns = ref<string[]>()
 const targetColumn = ref<string>()
 const rowsRemoved = ref<number>()
-const preProcessSuccess = ref<Boolean>()
+const preProcessSuccess = usePreProcessStore()
 
 function getFileList() {
   axios.get('/api/get_files').then(res => {
@@ -49,7 +50,7 @@ function handlePreprocessing() {
       method: selectedMLMethod.value
     }).then(res => {
       rowsRemoved.value = res.data
-      preProcessSuccess.value = true
+      preProcessSuccess.setPreProcessSuccess(true) 
       console.log(res);
     }).catch(err => {
       console.log(err);
