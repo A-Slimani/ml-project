@@ -1,0 +1,589 @@
+@prefix : <http://w3id.org/rv-ontology#> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://w3id.org/rv-ontology> .
+
+<http://w3id.org/rv-ontology> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://w3id.org/rv-ontology#selectionMethod
+:selectionMethod rdf:type owl:AnnotationProperty ;
+                 rdfs:subPropertyOf rdfs:comment .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://w3id.org/rv-ontology#analysisContext
+:analysisContext rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Model ;
+                 rdfs:range :AnalysisContext .
+
+
+###  http://w3id.org/rv-ontology#containMeasure
+:containMeasure rdf:type owl:ObjectProperty ;
+                rdfs:domain :DatasetStructure ;
+                rdfs:range :Measure .
+
+
+###  http://w3id.org/rv-ontology#controlVariable
+:controlVariable rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Model ;
+                 rdfs:range :Variable .
+
+
+###  http://w3id.org/rv-ontology#dataSet
+:dataSet rdf:type owl:ObjectProperty ;
+         rdfs:domain :Model ;
+         rdfs:range :Dataset .
+
+
+###  http://w3id.org/rv-ontology#dataSource
+:dataSource rdf:type owl:ObjectProperty ;
+            rdfs:domain :DatasetStructure ;
+            rdfs:range :DataSource .
+
+
+###  http://w3id.org/rv-ontology#datasetStructure
+:datasetStructure rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Dataset ;
+                  rdfs:range :DatasetStructure .
+
+
+###  http://w3id.org/rv-ontology#dependentVariable
+:dependentVariable rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Model ;
+                   rdfs:range :Variable .
+
+
+###  http://w3id.org/rv-ontology#firstVariable
+:firstVariable rdf:type owl:ObjectProperty ;
+               rdfs:domain :LinkedVariables ;
+               rdfs:range :Variable .
+
+
+###  http://w3id.org/rv-ontology#followedBy
+:followedBy rdf:type owl:ObjectProperty ;
+            rdfs:comment "property used to indicate the order of steps in the Analytics process, by linking [Step2] ->followedBy -> [Step1]" .
+
+
+###  http://w3id.org/rv-ontology#independentVariable
+:independentVariable rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Model ;
+                     rdfs:range :Variable .
+
+
+###  http://w3id.org/rv-ontology#linkType
+:linkType rdf:type owl:ObjectProperty ;
+          rdfs:domain :LinkedVariables ;
+          rdfs:range :LinkType .
+
+
+###  http://w3id.org/rv-ontology#measuredBy
+:measuredBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Variable ;
+            rdfs:range :Measure .
+
+
+###  http://w3id.org/rv-ontology#model
+:model rdf:type owl:ObjectProperty ;
+       rdfs:domain :AnalysisProcess ;
+       rdfs:range :Model .
+
+
+###  http://w3id.org/rv-ontology#modelType
+:modelType rdf:type owl:ObjectProperty ;
+           rdfs:domain :Model ;
+           rdfs:range :ModelType .
+
+
+###  http://w3id.org/rv-ontology#modifiedBy
+:modifiedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :AnalysisProcess ;
+            rdfs:range <http://xmlns.com/foaf/0.1/Person> ;
+            rdfs:comment "" .
+
+
+###  http://w3id.org/rv-ontology#operationalize
+:operationalize rdf:type owl:ObjectProperty ;
+                rdfs:domain :Variable ;
+                rdfs:range :Concept .
+
+
+###  http://w3id.org/rv-ontology#origin
+:origin rdf:type owl:ObjectProperty ;
+        rdfs:domain :Origin ;
+        rdfs:range [ rdf:type owl:Class ;
+                     owl:unionOf ( :AnalysisProcess
+                                   :Model
+                                 )
+                   ] .
+
+
+###  http://w3id.org/rv-ontology#pre-processingTechnique
+:pre-processingTechnique rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :model ;
+                         rdfs:domain :AnalysisProcess ;
+                         rdfs:range :Pre-processingTechnique .
+
+
+###  http://w3id.org/rv-ontology#processedBy
+:processedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Dataset ;
+             rdfs:range :Pre-processingTechnique .
+
+
+###  http://w3id.org/rv-ontology#responsibleFor
+:responsibleFor rdf:type owl:ObjectProperty ;
+                rdfs:domain <http://xmlns.com/foaf/0.1/Person> ;
+                rdfs:range :AnalysisProcess .
+
+
+###  http://w3id.org/rv-ontology#resultsSet
+:resultsSet rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :dataSet .
+
+
+###  http://w3id.org/rv-ontology#secondVariable
+:secondVariable rdf:type owl:ObjectProperty ;
+                rdfs:domain :LinkedVariables ;
+                rdfs:range :Variable .
+
+
+###  http://w3id.org/rv-ontology#testSet
+:testSet rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :dataSet ;
+         rdfs:domain :Model ;
+         rdfs:range :Dataset .
+
+
+###  http://w3id.org/rv-ontology#trainingSet
+:trainingSet rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :dataSet ;
+             rdfs:domain :Model ;
+             rdfs:range :Dataset .
+
+
+###  http://w3id.org/rv-ontology#tunedBy
+:tunedBy rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain :Model ;
+         rdfs:range :OptimisationTechnique .
+
+
+###  http://w3id.org/rv-ontology#validationSet
+:validationSet rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :dataSet ;
+               rdfs:domain :Model ;
+               rdfs:range :Dataset .
+
+
+###  http://w3id.org/rv-ontology#versionBy
+:versionBy rdf:type owl:ObjectProperty ;
+           rdfs:domain :Model ;
+           rdfs:range <http://xmlns.com/foaf/0.1/Person> .
+
+
+###  http://w3id.org/rv-ontology#versionOf
+:versionOf rdf:type owl:ObjectProperty ;
+           rdfs:domain :Model ;
+           rdfs:range :Model .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:DatatypeProperty .
+
+
+###  http://w3id.org/rv-ontology#F-measure
+:F-measure rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :resultsStatistics .
+
+
+###  http://w3id.org/rv-ontology#accuracy
+:accuracy rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :resultsStatistics .
+
+
+###  http://w3id.org/rv-ontology#assumptions
+:assumptions rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :Model .
+
+
+###  http://w3id.org/rv-ontology#averageRuntime
+:averageRuntime rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :modelComplexity .
+
+
+###  http://w3id.org/rv-ontology#batchSize
+:batchSize rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :hyperParameter .
+
+
+###  http://w3id.org/rv-ontology#centralTendancy
+:centralTendancy rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :resultsStatistics .
+
+
+###  http://w3id.org/rv-ontology#codeIsOpenSource
+:codeIsOpenSource rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Model ;
+                  rdfs:range xsd:boolean .
+
+
+###  http://w3id.org/rv-ontology#coefficients
+:coefficients rdf:type owl:DatatypeProperty ;
+              rdfs:domain :LinkedVariables ;
+              rdfs:range rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#cross-validation
+:cross-validation rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :parameterSetting .
+
+
+###  http://w3id.org/rv-ontology#dataAccessLink
+:dataAccessLink rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Dataset ;
+                rdfs:range xsd:anyURI .
+
+
+###  http://w3id.org/rv-ontology#dataCollectionProcess
+:dataCollectionProcess rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Dataset .
+
+
+###  http://w3id.org/rv-ontology#dataExclusion
+:dataExclusion rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Model ;
+               rdfs:comment "If any data points were excluded in model training, explain What data were excluded, and for what reasons? here." .
+
+
+###  http://w3id.org/rv-ontology#datasetStatistics
+:datasetStatistics rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain :Dataset .
+
+
+###  http://w3id.org/rv-ontology#dropoutRegularization
+:dropoutRegularization rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :hyperParameter .
+
+
+###  http://w3id.org/rv-ontology#energyCostEstimation
+:energyCostEstimation rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :modelComplexity .
+
+
+###  http://w3id.org/rv-ontology#evaluationCodeProvided
+:evaluationCodeProvided rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :codeIsOpenSource .
+
+
+###  http://w3id.org/rv-ontology#executionInstructions
+:executionInstructions rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :AnalysisProcess ;
+                       rdfs:range xsd:anyURI .
+
+
+###  http://w3id.org/rv-ontology#hardwareConfiguration
+:hardwareConfiguration rdf:type owl:DatatypeProperty .
+
+
+###  http://w3id.org/rv-ontology#hyperParameter
+:hyperParameter rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :parameterSetting .
+
+
+###  http://w3id.org/rv-ontology#isOpenAccess
+:isOpenAccess rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Dataset ;
+              rdfs:range xsd:boolean .
+
+
+###  http://w3id.org/rv-ontology#k-fold
+:k-fold rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :cross-validation .
+
+
+###  http://w3id.org/rv-ontology#learningRate
+:learningRate rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf :hyperParameter .
+
+
+###  http://w3id.org/rv-ontology#measureReferenceInDatasource
+:measureReferenceInDatasource rdf:type owl:DatatypeProperty ;
+                              rdfs:domain :Measure ;
+                              rdfs:range rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#modelComplexity
+:modelComplexity rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Model ;
+                 rdfs:comment "Describe the analysis of the complexity (time, space, sample size) of model" .
+
+
+###  http://w3id.org/rv-ontology#numberOfEvalRuns
+:numberOfEvalRuns rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :parameterSetting .
+
+
+###  http://w3id.org/rv-ontology#numberOfTrainingRuns
+:numberOfTrainingRuns rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :parameterSetting .
+
+
+###  http://w3id.org/rv-ontology#parameterSetting
+:parameterSetting rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Model ;
+                  rdfs:range rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#parameterSettingStrategy
+:parameterSettingStrategy rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :parameterSetting ;
+                          rdfs:comment "Provide a description of different parameter selection strategies or link to their documentation" .
+
+
+###  http://w3id.org/rv-ontology#pseudoCode
+:pseudoCode rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Model .
+
+
+###  http://w3id.org/rv-ontology#pythonNotebook
+:pythonNotebook rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :executionInstructions .
+
+
+###  http://w3id.org/rv-ontology#rCode
+:rCode rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf :executionInstructions ;
+       rdfs:domain [ rdf:type owl:Class ;
+                     owl:unionOf ( :Model
+                                   :ModelType
+                                 )
+                   ] ;
+       rdfs:range rdf:XMLLiteral .
+
+
+###  http://w3id.org/rv-ontology#resultsReport
+:resultsReport rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Model ;
+               rdfs:range xsd:anyURI ;
+               rdfs:comment "Provide link to results" .
+
+
+###  http://w3id.org/rv-ontology#resultsStatistics
+:resultsStatistics rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf :resultsReport .
+
+
+###  http://w3id.org/rv-ontology#spaceComplexity
+:spaceComplexity rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :modelComplexity .
+
+
+###  http://w3id.org/rv-ontology#statementOfClaims
+:statementOfClaims rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf :resultsReport .
+
+
+###  http://w3id.org/rv-ontology#timeComplexity
+:timeComplexity rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :modelComplexity .
+
+
+###  http://w3id.org/rv-ontology#train-testSplit
+:train-testSplit rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :cross-validation .
+
+
+###  http://w3id.org/rv-ontology#trainedModelProvided
+:trainedModelProvided rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :codeIsOpenSource .
+
+
+###  http://w3id.org/rv-ontology#trainingCodeProvided
+:trainingCodeProvided rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :codeIsOpenSource .
+
+
+###  http://w3id.org/rv-ontology#variation
+:variation rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :resultsStatistics .
+
+
+###  http://w3id.org/rv-ontology#versionDateAndNumber
+:versionDateAndNumber rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :Model ;
+                      rdfs:range rdf:PlainLiteral .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.org/spar/fabio/ResearchPaper
+fabio:ResearchPaper rdf:type owl:Class ;
+                    rdfs:subClassOf :Origin .
+
+
+###  http://w3id.org/rv-ontology#AnalysisContext
+:AnalysisContext rdf:type owl:Class .
+
+
+###  http://w3id.org/rv-ontology#AnalysisProcess
+:AnalysisProcess rdf:type owl:Class .
+
+
+###  http://w3id.org/rv-ontology#Concept
+:Concept rdf:type owl:Class ;
+         rdfs:subClassOf :AnalysisContext .
+
+
+###  http://w3id.org/rv-ontology#DataSource
+:DataSource rdf:type owl:Class ;
+            rdfs:comment "Data source refererce to the source from which a data is coming from, examples are: American Bureau of Statistics, Yahoo Finance, Wharton Research Data Services (WRDS), Thomson Reuters, etc."^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#Dataset
+:Dataset rdf:type owl:Class ;
+         rdfs:comment "Dataset refers to the data file provided by a data source which contain the data for one or multiple measures."^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#DatasetStructure
+:DatasetStructure rdf:type owl:Class ;
+                  rdfs:comment "Dataset structure refers to the meta data for a dataset such as what measures are captured, unit of measur."^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#Hypothesis
+:Hypothesis rdf:type owl:Class ;
+            rdfs:subClassOf :AnalysisContext .
+
+
+###  http://w3id.org/rv-ontology#LinkType
+:LinkType rdf:type owl:Class ;
+          rdfs:comment "Link Type describes the type of link that exists between two or more variables."^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#LinkedVariables
+:LinkedVariables rdf:type owl:Class ;
+                 rdfs:comment "A link describes a connection between two variables, the nature of this connection and how this connection was established. When the link is directional, it is read to the direction of LinkType. e.g. - firstVariable causes  secondVariable, for Causal LinkType."^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#Measure
+:Measure rdf:type owl:Class ;
+         rdfs:comment """Measures are the actual values for variables and are expected to have following features:
+· A unique identifier for each measure
+· Dataset structure for the measure"""^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#Model
+:Model rdf:type owl:Class ;
+       rdfs:comment """Models refer to underlying technique(s) which establish the link between two variables. The model is required to have following specifications:
+· Class of model such as statistical or mathematical model
+· Type of model within a particular class
+· Additional features within each model type"""^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#ModelType
+:ModelType rdf:type owl:Class .
+
+
+###  http://w3id.org/rv-ontology#Objective
+:Objective rdf:type owl:Class ;
+           rdfs:subClassOf :AnalysisContext .
+
+
+###  http://w3id.org/rv-ontology#OptimisationTechnique
+:OptimisationTechnique rdf:type owl:Class .
+
+
+###  http://w3id.org/rv-ontology#Origin
+:Origin rdf:type owl:Class .
+
+
+###  http://w3id.org/rv-ontology#Pre-processingTechnique
+:Pre-processingTechnique rdf:type owl:Class .
+
+
+###  http://w3id.org/rv-ontology#Problem
+:Problem rdf:type owl:Class ;
+         rdfs:subClassOf :AnalysisContext .
+
+
+###  http://w3id.org/rv-ontology#ResearchQuestion
+:ResearchQuestion rdf:type owl:Class ;
+                  rdfs:subClassOf :AnalysisContext .
+
+
+###  http://w3id.org/rv-ontology#Variable
+:Variable rdf:type owl:Class ;
+          rdfs:comment """Variables exist as metrics to quantify concepts. Variables are required to have following features:
+· A unique identifier for each variable
+· The origin of the variables (references, people, etc.)
+· Concepts associated with a variable, and link to those concepts"""^^rdfs:Literal .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+<http://xmlns.com/foaf/0.1/Person> rdf:type owl:Class ;
+                                   rdfs:subClassOf :Origin .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://w3id.org/rv-ontology#Causal
+:Causal rdf:type owl:NamedIndividual ,
+                 :LinkType ;
+        rdfs:comment "Causal: a variable causes another variable"^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#Correlated
+:Correlated rdf:type owl:NamedIndividual ,
+                     :LinkType ;
+            rdfs:comment "Two variables are correlated to each other." .
+
+
+###  http://w3id.org/rv-ontology#InvestigativeCausal
+:InvestigativeCausal rdf:type owl:NamedIndividual ,
+                              :LinkType ;
+                     rdfs:comment "·Investigative Causal: there is a hypothesis that one variable cause another, the hypothesis needs to be tested."^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#NonCausal
+:NonCausal rdf:type owl:NamedIndividual ,
+                    :LinkType ;
+           rdfs:comment "NonCausal: Unable to establish a causal link between two variables."^^rdfs:Literal .
+
+
+###  http://w3id.org/rv-ontology#Proxy
+:Proxy rdf:type owl:NamedIndividual ,
+                :LinkType ;
+       rdfs:comment "One variable can be used as a proxy to the second variable." .
+
+
+###  http://w3id.org/rv-ontology#sampleProcess
+:sampleProcess rdf:type owl:NamedIndividual ,
+                        :AnalysisProcess ;
+               rdfs:comment "Analysis process instance will be linked to instances of different techniques and models, to list ordered steps of experiment." .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

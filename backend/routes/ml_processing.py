@@ -39,5 +39,6 @@ def pre_processing():
 def run_ml_processing():
 
   ml_setup = setup(data=df, target=target_column)
+  json_data = ml_setup.dashboard
 
-  return jsonify(ml_setup), 200
+  return jsonify(json_data), 200 

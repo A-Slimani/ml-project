@@ -1,0 +1,516 @@
+@prefix : <http://api.stardog.com/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix so: <https://schema.org/> .
+@prefix stardog: <tag:stardog:api:> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mlr: <http://w3id.org/rv-ontology#> .
+
+<http://w3id.org/rv-ontology> a owl:Ontology .
+
+mlr:selectionMethod a owl:AnnotationProperty ;
+    rdfs:subPropertyOf rdfs:comment .
+
+mlr:analysisContext a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:AnalysisContext .
+
+mlr:Model a owl:Class ;
+    rdfs:comment """Models refer to underlying technique(s) which establish the link between two variables. The model is required to have following specifications:
+· Class of model such as statistical or mathematical model
+· Type of model within a particular class
+· Additional features within each model type"""^^rdfs:Literal .
+
+mlr:AnalysisContext a owl:Class .
+
+mlr:containMeasure a owl:ObjectProperty ;
+    rdfs:domain mlr:DatasetStructure ;
+    rdfs:range mlr:Measure .
+
+mlr:DatasetStructure a owl:Class ;
+    rdfs:comment "Dataset structure refers to the meta data for a dataset such as what measures are captured, unit of measur."^^rdfs:Literal .
+
+mlr:Measure a owl:Class ;
+    rdfs:comment """Measures are the actual values for variables and are expected to have following features:
+· A unique identifier for each measure
+· Dataset structure for the measure"""^^rdfs:Literal .
+
+mlr:controlVariable a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Variable .
+
+mlr:Variable a owl:Class ;
+    rdfs:comment """Variables exist as metrics to quantify concepts. Variables are required to have following features:
+· A unique identifier for each variable
+· The origin of the variables (references, people, etc.)
+· Concepts associated with a variable, and link to those concepts"""^^rdfs:Literal .
+
+mlr:dataSet a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Dataset .
+
+mlr:evaluatedBy a owl:ObjectProperty ;
+    rdfs:domain mlr:Result ;
+    rdfs:range mlr:EvaluationMetric .
+
+mlr:Dataset a owl:Class ;
+    rdfs:comment "Dataset refers to the data file provided by a data source which contain the data for one or multiple measures."^^rdfs:Literal .
+
+mlr:dataSource a owl:ObjectProperty ;
+    rdfs:domain mlr:DatasetStructure ;
+    rdfs:range mlr:DataSource .
+
+mlr:DataSource a owl:Class ;
+    rdfs:comment "Data source refererce to the source from which a data is coming from, examples are: American Bureau of Statistics, Yahoo Finance, Wharton Research Data Services (WRDS), Thomson Reuters, etc."^^rdfs:Literal .
+
+mlr:datasetStructure a owl:ObjectProperty ;
+    rdfs:domain mlr:Dataset ;
+    rdfs:range mlr:DatasetStructure .
+
+mlr:dependentVariable a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Variable .
+
+mlr:firstVariable a owl:ObjectProperty ;
+    rdfs:domain mlr:LinkedVariables ;
+    rdfs:range mlr:Variable .
+
+mlr:LinkedVariables a owl:Class ;
+    rdfs:comment "A link describes a connection between two variables, the nature of this connection and how this connection was established. When the link is directional, it is read to the direction of LinkType. e.g. - firstVariable causes  secondVariable, for Causal LinkType."^^rdfs:Literal .
+
+mlr:followedBy a owl:ObjectProperty ;
+    rdfs:comment "property used to indicate the order of steps in the Analytics process, by linking [Step2] ->followedBy -> [Step1]" .
+
+mlr:independentVariable a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Variable .
+
+mlr:linkType a owl:ObjectProperty ;
+    rdfs:domain mlr:LinkedVariables ;
+    rdfs:range mlr:LinkType .
+
+mlr:LinkType a owl:Class ;
+    rdfs:comment "Link Type describes the type of link that exists between two or more variables."^^rdfs:Literal .
+
+mlr:measuredBy a owl:ObjectProperty ;
+    rdfs:domain mlr:Variable ;
+    rdfs:range mlr:Measure .
+
+mlr:model a owl:ObjectProperty ;
+    rdfs:domain mlr:AnalysisProcess ;
+    rdfs:range mlr:Model .
+
+mlr:AnalysisProcess a owl:Class .
+
+mlr:modelType a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:ModelType .
+
+mlr:ModelType a owl:Class .
+
+mlr:modifiedBy a owl:ObjectProperty ;
+    rdfs:comment "" ;
+    rdfs:domain mlr:AnalysisProcess ;
+    rdfs:range <http://xmlns.com/foaf/0.1/Person> .
+
+<http://xmlns.com/foaf/0.1/Person> a owl:Class ;
+    rdfs:subClassOf mlr:Origin .
+
+mlr:operationalize a owl:ObjectProperty ;
+    rdfs:domain mlr:Variable ;
+    rdfs:range mlr:Concept .
+
+mlr:Concept a owl:Class ;
+    rdfs:subClassOf mlr:AnalysisContext .
+
+mlr:origin a owl:ObjectProperty ;
+    rdfs:domain mlr:Origin ;
+    rdfs:range mlr:Model.
+
+mlr:Origin a owl:Class .
+
+mlr:pre-processingTechnique a owl:ObjectProperty ;
+    rdfs:domain mlr:AnalysisProcess ;
+    rdfs:range mlr:Pre-processingTechnique ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mlr:Pre-processingTechnique a owl:Class .
+
+mlr:processedBy a owl:ObjectProperty ;
+    rdfs:domain mlr:Dataset ;
+    rdfs:range mlr:Pre-processingTechnique ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mlr:responsibleFor a owl:ObjectProperty ;
+    rdfs:domain <http://xmlns.com/foaf/0.1/Person> ;
+    rdfs:range mlr:AnalysisProcess .
+
+mlr:resultsSet a owl:ObjectProperty ;
+    rdfs:subPropertyOf mlr:dataSet .
+
+mlr:secondVariable a owl:ObjectProperty ;
+    rdfs:domain mlr:LinkedVariables ;
+    rdfs:range mlr:Variable .
+
+mlr:testSet a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Dataset ;
+    rdfs:subPropertyOf mlr:dataSet .
+
+mlr:trainingSet a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Dataset ;
+    rdfs:subPropertyOf mlr:dataSet .
+
+mlr:tunedBy a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:OptimisationTechnique ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mlr:OptimisationTechnique a owl:Class .
+
+mlr:validationSet a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Dataset ;
+    rdfs:subPropertyOf mlr:dataSet .
+
+mlr:versionBy a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range <http://xmlns.com/foaf/0.1/Person> .
+
+mlr:versionOf a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Model .
+
+<http://purl.org/dc/terms/title> a owl:DatatypeProperty .
+
+mlr:F-measure a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:resultsStatistics .
+
+mlr:resultsStatistics a owl:DatatypeProperty ;
+    rdfs:domain mlr:Result ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mlr:accuracy a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:resultsStatistics .
+
+mlr:assumptions a owl:DatatypeProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mlr:averageRuntime a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:modelComplexity .
+
+mlr:modelComplexity a owl:DatatypeProperty ;
+    rdfs:comment "Describe the analysis of the complexity (time, space, sample size) of model" ;
+    rdfs:domain mlr:Model .
+
+mlr:batchSize a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:hyperParameter .
+
+mlr:hyperParameter a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:parameterSetting .
+
+mlr:centralTendancy a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:resultsStatistics .
+
+mlr:codeIsOpenSource a owl:DatatypeProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range xsd:boolean .
+
+mlr:coefficients a owl:DatatypeProperty ;
+    rdfs:domain mlr:LinkedVariables ;
+    rdfs:range rdfs:Literal .
+
+mlr:cross-validation a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:parameterSetting .
+
+mlr:parameterSetting a owl:DatatypeProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range rdfs:Literal .
+
+mlr:dataAccessLink a owl:DatatypeProperty ;
+    rdfs:domain mlr:Dataset ;
+    rdfs:range xsd:anyURI .
+
+mlr:dataCollectionProcess a owl:DatatypeProperty ;
+    rdfs:domain mlr:Dataset .
+
+mlr:dataExclusion a owl:DatatypeProperty ;
+    rdfs:comment "If any data points were excluded in model training, explain What data were excluded, and for what reasons? here." ;
+    rdfs:domain mlr:Model .
+
+mlr:datasetStatistics a owl:DatatypeProperty ;
+    rdfs:domain mlr:Dataset ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mlr:dropoutRegularization a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:hyperParameter .
+
+mlr:energyCostEstimation a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:modelComplexity .
+
+mlr:evaluationCodeProvided a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:codeIsOpenSource .
+
+mlr:executionInstructions a owl:DatatypeProperty ;
+    rdfs:domain mlr:AnalysisProcess ;
+    rdfs:range xsd:anyURI .
+
+mlr:hardwareConfiguration a owl:DatatypeProperty .
+
+mlr:isOpenAccess a owl:DatatypeProperty ;
+    rdfs:domain mlr:Dataset ;
+    rdfs:range xsd:boolean .
+
+mlr:k-fold a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:cross-validation .
+
+mlr:learningRate a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:hyperParameter .
+
+mlr:measureReferenceInDatasource a owl:DatatypeProperty ;
+    rdfs:domain mlr:Measure ;
+    rdfs:range rdfs:Literal .
+
+mlr:numberOfEvalRuns a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:parameterSetting .
+
+mlr:numberOfTrainingRuns a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:parameterSetting .
+
+mlr:parameterSettingStrategy a owl:DatatypeProperty ;
+    rdfs:comment "Provide a description of different parameter selection strategies or link to their documentation" ;
+    rdfs:subPropertyOf mlr:parameterSetting .
+
+mlr:pseudoCode a owl:DatatypeProperty ;
+    rdfs:domain mlr:Model .
+
+mlr:pythonNotebook a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:executionInstructions .
+
+mlr:rCode a owl:DatatypeProperty ;
+    rdfs:domain [
+        a owl:Class ;
+        owl:unionOf ( mlr:Model mlr:ModelType )
+    ] ;
+    rdfs:range rdf:XMLLiteral ;
+    rdfs:subPropertyOf mlr:executionInstructions .
+
+mlr:resultsReport a owl:DatatypeProperty ;
+    rdfs:comment "Provide link to results" ;
+    rdfs:domain mlr:Result ;
+    rdfs:range xsd:anyURI .
+
+mlr:spaceComplexity a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:modelComplexity .
+
+mlr:statementOfClaims a owl:DatatypeProperty ;
+    rdfs:domain mlr:Result ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+mlr:timeComplexity a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:modelComplexity .
+
+mlr:train-testSplit a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:cross-validation .
+
+mlr:trainedModelProvided a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:codeIsOpenSource .
+
+mlr:trainingCodeProvided a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:codeIsOpenSource .
+
+mlr:variation a owl:DatatypeProperty ;
+    rdfs:subPropertyOf mlr:resultsStatistics .
+
+mlr:versionDateAndNumber a owl:DatatypeProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range rdf:PlainLiteral .
+
+<http://purl.org/spar/fabio/ResearchPaper> a owl:Class ;
+    rdfs:subClassOf mlr:Origin .
+
+mlr:Hypothesis a owl:Class ;
+    rdfs:subClassOf mlr:AnalysisContext .
+
+mlr:Objective a owl:Class ;
+    rdfs:subClassOf mlr:AnalysisContext .
+
+mlr:Problem a owl:Class ;
+    rdfs:subClassOf mlr:AnalysisContext .
+
+mlr:ResearchQuestion a owl:Class ;
+    rdfs:subClassOf mlr:AnalysisContext .
+
+mlr:Causal a mlr:LinkType , owl:NamedIndividual ;
+    rdfs:comment "Causal: a variable causes another variable"^^rdfs:Literal .
+
+mlr:Correlated a mlr:LinkType , owl:NamedIndividual ;
+    rdfs:comment "Two variables are correlated to each other." .
+
+mlr:InvestigativeCausal a mlr:LinkType , owl:NamedIndividual ;
+    rdfs:comment "·Investigative Causal: there is a hypothesis that one variable cause another, the hypothesis needs to be tested."^^rdfs:Literal .
+
+mlr:NonCausal a mlr:LinkType , owl:NamedIndividual ;
+    rdfs:comment "NonCausal: Unable to establish a causal link between two variables."^^rdfs:Literal .
+
+mlr:Proxy a mlr:LinkType , owl:NamedIndividual ;
+    rdfs:comment "One variable can be used as a proxy to the second variable." .
+
+mlr:sampleProcess a mlr:AnalysisProcess , owl:NamedIndividual ;
+    rdfs:comment "Analysis process instance will be linked to instances of different techniques and models, to list ordered steps of experiment." .
+
+mlr:cross-validationStrategy a owl:ObjectProperty .
+
+mlr:implementationFramework a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:ML-Framework ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+mlr:ML-Framework a owl:Class .
+
+mlr:performanceMetrics a owl:ObjectProperty .
+
+mlr:result a owl:ObjectProperty ;
+    rdfs:domain mlr:Model ;
+    rdfs:range mlr:Result .
+
+mlr:Result a owl:Class .
+
+mlr:Cross-ValidationStrategy a owl:Class ;
+    rdfs:subClassOf mlr:OptimisationTechnique .
+
+mlr:DataAugmentation a owl:Class ;
+    rdfs:subClassOf mlr:Pre-processingTechnique .
+
+mlr:DeepLearning a owl:Class ;
+    rdfs:subClassOf mlr:ModelType .
+
+mlr:EvaluationMetric a owl:Class ;
+    rdfs:subClassOf mlr:Measure .
+
+mlr:ASSD a mlr:EvaluationMetric , owl:NamedIndividual ;
+    rdfs:comment "ASSD" .
+
+mlr:AVD a mlr:EvaluationMetric , owl:NamedIndividual ;
+    rdfs:comment "average volume distance" .
+
+mlr:CMD a owl:NamedIndividual .
+
+mlr:CNN a mlr:DeepLearning , owl:NamedIndividual .
+
+mlr:Caffe a mlr:ML-Framework , owl:NamedIndividual ;
+    rdfs:comment "https://caffe.berkeleyvision.org/" .
+
+mlr:Chen2016-asemiautomatic a <http://purl.org/spar/fabio/ResearchPaper> , owl:NamedIndividual ;
+    mlr:cross-validationStrategy mlr:LOO .
+
+mlr:LOO a mlr:Cross-ValidationStrategy , owl:NamedIndividual .
+
+mlr:Chen2016-asemiautomatic-Model a mlr:Model , owl:NamedIndividual ;
+    mlr:batchSize "NotProvided"^^rdfs:Literal ;
+    mlr:codeIsOpenSource true ;
+    mlr:dropoutRegularization "NotProvided"^^rdfs:Literal ;
+    mlr:hardwareConfiguration "NVIDIA TITAN X GPU"^^rdfs:Literal ;
+    mlr:implementationFramework mlr:Caffe ;
+    mlr:learningRate "NotProvided"^^rdfs:Literal ;
+    mlr:modelType mlr:CNN ;
+    mlr:origin mlr:Chen2016-asemiautomatic ;
+    mlr:parameterSettingStrategy "Handcrafted"^^rdfs:Literal ;
+    mlr:performanceMetrics mlr:AVD , mlr:DiceCoefficient , mlr:MHD ;
+    mlr:tunedBy mlr:NotProvided ;
+    rdfs:comment "A semi-automatic computer-aided method for surgical template design." .
+
+mlr:DiceCoefficient a mlr:EvaluationMetric , owl:NamedIndividual ;
+    rdfs:comment "Spatial overlap between masks" .
+
+mlr:MHD a mlr:EvaluationMetric , owl:NamedIndividual ;
+    rdfs:comment "modified Hausdorff distance" .
+
+mlr:NotProvided a owl:NamedIndividual .
+
+mlr:HD a mlr:EvaluationMetric , owl:NamedIndividual ;
+    rdfs:comment "Hausdorff distance" .
+
+mlr:K-Fold a mlr:Cross-ValidationStrategy , owl:NamedIndividual .
+
+mlr:Kamnitsas2017-EfficientMult a <http://purl.org/spar/fabio/ResearchPaper> , owl:NamedIndividual .
+
+mlr:Kamnitsas2017-EfficientMult-Model a mlr:Model , owl:NamedIndividual ;
+    mlr:batchSize "provided"^^rdfs:Literal ;
+    mlr:codeIsOpenSource true ;
+    mlr:cross-validationStrategy mlr:K-Fold ;
+    mlr:dropoutRegularization "provided"^^rdfs:Literal ;
+    mlr:hardwareConfiguration "NVIDIA GTX Titan X GPU-12GB"^^rdfs:Literal ;
+    mlr:implementationFramework mlr:Theano ;
+    mlr:k-fold 5 ;
+    mlr:learningRate 0.00001 ;
+    mlr:modelType mlr:CNN ;
+    mlr:origin mlr:Kamnitsas2017-EfficientMult ;
+    mlr:parameterSettingStrategy "Handcrafted"^^rdfs:Literal ;
+    mlr:performanceMetrics mlr:ASSD , mlr:DiceCoefficient , mlr:HD , mlr:PredictionAccuracy , mlr:Sensitivity ;
+    mlr:pre-processingTechnique mlr:Patches ;
+    mlr:tunedBy mlr:RMS-prop ;
+    rdfs:comment "Efficient multi-scale 3d CNN with fully connected crf for accurate brain lesion segmentation." .
+
+mlr:Theano a mlr:ML-Framework , owl:NamedIndividual ;
+    rdfs:comment "http://deepl earni ng.net/softw are/theano/" .
+
+mlr:PredictionAccuracy a mlr:EvaluationMetric , owl:NamedIndividual ;
+    rdfs:comment "PredictionAccuracy" .
+
+mlr:Sensitivity a mlr:EvaluationMetric , owl:NamedIndividual ;
+    rdfs:comment "Sensitivity" .
+
+mlr:Patches a mlr:Pre-processingTechnique , owl:NamedIndividual .
+
+mlr:RMS-prop a mlr:OptimisationTechnique , owl:NamedIndividual .
+
+mlr:Lasagne a mlr:ML-Framework , owl:NamedIndividual ;
+    rdfs:comment "https://lasagne.readthedocs.io/en/latest/" .
+
+mlr:Mat-ConvNet a mlr:ML-Framework , owl:NamedIndividual ;
+    rdfs:comment "http://www.vlfeat.org/matconvnet/" .
+
+mlr:PPV a owl:NamedIndividual .
+
+mlr:Pereira2016-BrainTumor a <http://purl.org/spar/fabio/ResearchPaper> , owl:NamedIndividual .
+
+mlr:Pereira2016-BrainTumor-Model a mlr:Model , owl:NamedIndividual ;
+    mlr:batchSize "provided"^^rdfs:Literal ;
+    mlr:codeIsOpenSource true ;
+    mlr:cross-validationStrategy mlr:NotProvided ;
+    mlr:dropoutRegularization "provided"^^rdfs:Literal ;
+    mlr:hardwareConfiguration "GPU NVIDIA GeForce GTX 980"^^rdfs:Literal ;
+    mlr:implementationFramework mlr:Theano ;
+    mlr:learningRate "range values"^^rdfs:Literal ;
+    mlr:modelType mlr:CNN ;
+    mlr:origin mlr:Pereira2016-BrainTumor ;
+    mlr:parameterSettingStrategy "Handcrafted"^^rdfs:Literal ;
+    mlr:performanceMetrics mlr:DiceCoefficient , mlr:PPV , mlr:Sensitivity ;
+    mlr:pre-processingTechnique mlr:Patches ;
+    mlr:tunedBy mlr:SGD-M ;
+    rdfs:comment "Brain tumor segmentation using convolutional neural networks in MRI images" .
+
+mlr:SGD-M a mlr:OptimisationTechnique , owl:NamedIndividual .
+
+mlr:Shakeri2016-Subcortical a <http://purl.org/spar/fabio/ResearchPaper> , owl:NamedIndividual .
+
+mlr:Shakeri2016-Subcortical-Model a mlr:Model , owl:NamedIndividual ;
+    mlr:batchSize ""^^rdfs:Literal , "notProvided"^^rdfs:Literal ;
+    mlr:codeIsOpenSource true ;
+    mlr:cross-validationStrategy mlr:K-Fold ;
+    mlr:dropoutRegularization "provided"^^rdfs:Literal ;
+    mlr:hardwareConfiguration "Descirbed on Github"^^rdfs:Literal ;
+    mlr:implementationFramework mlr:Mat-ConvNet ;
+    mlr:k-fold 3 ;
+    mlr:learningRate "0.01"^^rdfs:Literal ;
+    mlr:modelType mlr:CNN ;
+    mlr:origin mlr:Shakeri2016-Subcortical ;
+    mlr:parameterSettingStrategy "Handcrafted"^^rdfs:Literal ;
+    mlr:performanceMetrics mlr:CMD , mlr:DiceCoefficient , mlr:HD ;
+    mlr:pre-processingTechnique mlr:Patches ;
+    mlr:tunedBy mlr:SGD-M ;
+    rdfs:comment "Sub-cortical brain structure segmentation using f-CNN’s" .

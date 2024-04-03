@@ -108,7 +108,9 @@ onMounted(() => {
 .main {
   display: flex;
   flex-direction: column;
-  align-items: right;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
   gap: 10px;
   margin: 10px;
 }
@@ -117,6 +119,7 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 </style>
