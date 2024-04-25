@@ -3,11 +3,12 @@ import { useMLSetupStore } from '@/stores/MLStore';
 
 const MLSetupStore = useMLSetupStore();
 
-
 </script>
 
 <template>
-    <div>
-        <p></p>
-    </div>
+  <div>
+    <p>
+      
+    </p>
+  </div>
 </template>
