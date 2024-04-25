@@ -9,10 +9,10 @@ app = Flask(__name__, static_folder='static', static_url_path='/assets')
 
 dotenv.load_dotenv()
 
-# URI = os.getenv('NEO4J_URI')
-# AUTH = (os.getenv('NEO4J_USERNAME'), os.getenv('NEO4J_PASSWORD'))
+URI = os.getenv('NEO4J_URI')
+AUTH = (os.getenv('NEO4J_USERNAME'), os.getenv('NEO4J_PASSWORD'))
 
-# driver = GraphDatabase.driver(URI, auth=AUTH)
+driver = GraphDatabase.driver(URI, auth=AUTH)
 
 @app.route("/")
 def index():
